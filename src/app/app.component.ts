@@ -7,4 +7,19 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  add(numbers: string): number {
+    if (numbers === "") {
+      return 0;
+    }
+    return numbers.split(',').map(num => parseInt(num, 10)).reduce((sum, num) => sum + num, 0);
+  }
+
+  ngOnInit(){
+    let result1 = this.add('');
+    let result2 = this.add("1");
+    let result3 = this.add('1,5');
+    console.log(`for input : ""`, result1);
+    console.log(`for input : "1" : `, result2);
+    console.log(`for input : "1,5" : `, result3);
+  }
 }
