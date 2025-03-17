@@ -11,12 +11,47 @@ export class AppComponent {
     if (numbers === "") {
       return 0;
     }
+    /*****************************************1, 2**************************************************/
     // return numbers.split(',').map(num => parseInt(num, 10)).reduce((sum, num) => sum + num, 0);
     // return numbers
     // .split(/,|\n/) // Split by comma or newline
     // .map(num => parseInt(num, 10))
     // .reduce((sum, num) => sum + num, 0);
 
+    /***************************************** 3, 4 **************************************************/
+    // let delimiter = /,|\n/;
+    // if (numbers.startsWith("//")) {
+    //   const parts = numbers.split("\n");
+    //   delimiter = new RegExp(parts[0].substring(2));
+    //   numbers = parts[1];
+    // }
+
+    // return numbers
+    //   .split(delimiter)
+    //   .map(num => parseInt(num, 10))
+    //   .reduce((sum, num) => sum + num, 0);
+
+
+    /***************************************** 5 **************************************************/
+    // let delimiter = /,|\n/;
+    // if (numbers.startsWith("//")) {
+    //   const parts = numbers.split("\n");
+    //   delimiter = new RegExp(parts[0].substring(2));
+    //   numbers = parts[1];
+    // }
+
+    // const numArray = numbers.split(delimiter).map(num => parseInt(num, 10));
+
+    // const negativeNumbers = numArray.filter(num => num < 0);
+    // if (negativeNumbers.length > 0) {
+    //   throw new Error(`negative numbers not allowed ${negativeNumbers.join(",")}`);
+    // }
+
+    // return numArray.reduce((sum, num) => sum + num, 0);
+
+
+
+    /* 6. Numbers bigger than 1000 should be ignored, so adding 2 + 1001 = 2 */
     let delimiter = /,|\n/;
     if (numbers.startsWith("//")) {
       const parts = numbers.split("\n");
@@ -24,11 +59,16 @@ export class AppComponent {
       numbers = parts[1];
     }
 
-    return numbers
-      .split(delimiter)
+    const numArray = numbers.split(delimiter)
       .map(num => parseInt(num, 10))
-      .reduce((sum, num) => sum + num, 0);
+      .filter(num => num <= 1000); // Ignore numbers greater than 1000
 
+    const negativeNumbers = numArray.filter(num => num < 0);
+    if (negativeNumbers.length > 0) {
+      throw new Error(`negative numbers not allowed ${negativeNumbers.join(",")}`);
+    }
+
+    return numArray.reduce((sum, num) => sum + num, 0);
   }
 
   ngOnInit(){
@@ -47,6 +87,15 @@ export class AppComponent {
 
     let result5 = this.add("//;\n1;2");
     console.log(`Support different delimiters for input "//;\n1;2"`, result5);
+
+    console.log('-------------------------------------------------------');
+    // let result6 = this.add("1,-2,3,-4");
+    // console.log(`add with a negative number will throw an exception: for input "1,-2,3,-4"`, result6);
+
+    console.log("----------------------------------------------------------");
+    let result7 = this.add("2,1001")
+    console.log(`Numbers bigger than 1000 should be ignored for input "2,1001"`, result7 );
+
 
 
 
