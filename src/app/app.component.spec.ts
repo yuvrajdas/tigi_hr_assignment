@@ -21,5 +21,8 @@ describe('AppComponent - String Calculator', () => {
     expect(component.add("1,5")).toBe(6);
   });
 
+  it('add method should handle new lines between numbers', () => {
+    expect(component.add("1\n2,3")).toBe(6);
+  });
 
 });
