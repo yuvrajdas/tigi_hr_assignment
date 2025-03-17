@@ -106,12 +106,45 @@ export class AppComponent {
 
     /*********************  8. Allow multiple delimiters like this: “//[delim1][delim2]\n” for example “//[*][%]\n1*2%3” should return 6. *******************************/
 
+    // let delimiter = /,|\n/;
+    // if (numbers.startsWith("//")) {
+    //   const parts = numbers.split("\n");
+    //   const delimiterPart = parts[0].substring(2);
+
+    //   // Step 5 & 7: Support multiple delimiters and escape special characters
+    //   const delimiters = delimiterPart.match(/\[(.*?)\]/g);
+
+    //   if (delimiters) {
+    //     const escapedDelimiters = delimiters.map(d => d.slice(1, -1).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
+    //     delimiter = new RegExp(escapedDelimiters.join("|"));
+    //   } else {
+    //     delimiter = new RegExp(delimiterPart.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
+    //   }
+
+    //   numbers = parts[1];
+    // }
+
+    // const numArray = numbers.split(delimiter)
+    //   .map(num => parseInt(num, 10))
+    //   .filter(num => !isNaN(num));
+
+    // // Step 6: Ignore numbers > 1000
+    // const validNumbers = numArray.filter(num => num <= 1000);
+
+    // // Step 4: Handle negative numbers
+    // const negativeNumbers = validNumbers.filter(num => num < 0);
+    // if (negativeNumbers.length > 0) {
+    //   throw new Error(`negative numbers not allowed ${negativeNumbers.join(",")}`);
+    // }
+
+    // return validNumbers.reduce((sum, num) => sum + num, 0);
+
+    /*********** 9. make sure you can also handle multiple delimiters with length longer than one char************/
     let delimiter = /,|\n/;
     if (numbers.startsWith("//")) {
       const parts = numbers.split("\n");
       const delimiterPart = parts[0].substring(2);
 
-      // Step 5 & 7: Support multiple delimiters and escape special characters
       const delimiters = delimiterPart.match(/\[(.*?)\]/g);
 
       if (delimiters) {
@@ -128,10 +161,8 @@ export class AppComponent {
       .map(num => parseInt(num, 10))
       .filter(num => !isNaN(num));
 
-    // Step 6: Ignore numbers > 1000
     const validNumbers = numArray.filter(num => num <= 1000);
 
-    // Step 4: Handle negative numbers
     const negativeNumbers = validNumbers.filter(num => num < 0);
     if (negativeNumbers.length > 0) {
       throw new Error(`negative numbers not allowed ${negativeNumbers.join(",")}`);
@@ -174,6 +205,10 @@ export class AppComponent {
     console.log("----------------------------------------------------------");
     let result9 = this.add("//[*][%]\n1*2%3")
     console.log(`Allow multiple delimiters like this, input "//[*][%]\n1*2%3"`, result9);
+
+    console.log("----------------------------------------------------------");
+    let result10 = this.add("//[***][%%]\n1***2%%3")
+    console.log(`support multiple delimiters with length longer than one character, input "//[***][%%]\n1***2%%3"`, result10);
 
   }
 }
