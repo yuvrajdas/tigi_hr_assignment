@@ -41,4 +41,7 @@ describe('AppComponent - String Calculator', () => {
   it('7. add method should support delimiters of any length', () => {
     expect(component.add("//[***]\n1***2***3")).toBe(6);
   });
+  it('8 method should support multiple delimiters', () => {
+    expect(component.add("//[*][%]\n1*2%3")).toBe(6);
+  });
 });
